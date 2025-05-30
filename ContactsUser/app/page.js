@@ -135,6 +135,7 @@ export default function ContactsPage() {
         querySnapshot.forEach((doc) => {
           // Get the phone number
           let phoneNumber = doc.data().phone || ""
+          let email = doc.data().email || ""
           
           // Format phone for display if it's a 10-digit number
           let formattedPhone = phoneNumber
@@ -147,6 +148,7 @@ export default function ContactsPage() {
             name: doc.id,
             phone: formattedPhone, // Formatted for display
             rawPhone: phoneNumber, // Raw for adding to contacts
+            email:email,
             checked: true // Default checked state
           })
           
