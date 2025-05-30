@@ -358,18 +358,22 @@ export default function ContactsPage() {
       {getInitials(contact.name)}
     </Avatar>
     
-    <ListItemText 
+<ListItemText 
   primary={
     <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>
       {contact.name}
     </span>
   } 
   secondary={
-    <span style={{ variant: 'body2', color: 'secondary' }}>
-      {contact.phone}
-    </span>
-  } 
+    <>
+      <span style={{ display: 'block', color: '#555' }}>{contact.phone}</span>
+      {contact.email && (
+        <span style={{ display: 'block', color: '#777' }}>{contact.email}</span>
+      )}
+    </>
+  }
 />
+
   </Box>
 
   {/* Move the checkbox to the right side but not too close to the edge */}
