@@ -364,14 +364,15 @@ export default function ContactsPage() {
       {contact.name}
     </span>
   } 
-  secondary={
-    <>
-      <span style={{ display: 'block', color: '#555' }}>{contact.phone}</span>
-      {contact.email && (
-        <span style={{ display: 'block', color: '#777' }}>{contact.email}</span>
-      )}
-    </>
-  }
+secondary={
+  <>
+    <span style={{ display: 'block', color: '#444' }}>{contact.phone}</span>
+    {contact.email && (
+      <span style={{ display: 'block', color: 'red' }}>{contact.email}</span>
+    )}
+  </>
+}
+
 />
 
   </Box>
