@@ -207,16 +207,18 @@ export default function ContactsPage() {
     }
 
      // Fallback: Generate a single vCard with all selected contacts
-     const vCards = selectedContacts.map((contact) => {
+    const vCards = selectedContacts.map((contact) => {
       return [
         "BEGIN:VCARD",
         "VERSION:3.0",
-        `FN:${contact.name}`,  // Properly formatted with backticks
-        `N:;${contact.name};;;`,  // This will put the full name in the First Name field
+        `FN:${contact.name}`,
+        `N:;${contact.name};;;`,
         `TEL;TYPE=CELL:${contact.rawPhone}`,
+        contact.email ? `EMAIL:${contact.email}` : "",  // <- only add if email exists
         "END:VCARD"
       ].join("\r\n");
     }).join("\r\n");
+
     
   
     const blob = new Blob([vCards], { type: "text/vcard" })
