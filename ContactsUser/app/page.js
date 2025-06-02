@@ -159,7 +159,7 @@ export default function ContactsPage() {
                 ) : (
                   <List>
                     {contacts.map((c) => (
-                      <Box key={c.id} sx={{ '&:hover': { backgroundColor: 'rgba(187, 222, 71, 0.05)' } }}>
+                      <Box key={c.id} sx={{ '&:hover': { backgroundColor: 'rgba(28, 17, 240, 0.05)' } }}>
 <ListItem
   button
   onClick={() => handleCheckboxChange(c.id)}
