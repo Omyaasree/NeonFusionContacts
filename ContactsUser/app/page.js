@@ -163,7 +163,7 @@ export default function ContactsPage() {
                         <ListItem button onClick={() => handleCheckboxChange(c.id)} sx={{ py: 2, px: 3 }}>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 1 }}>
                             <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>{getInitials(c.name)}</Avatar>
-                            <ListItemText primary={<span style={{ fontWeight: 600, fontSize: '1.1rem' }}>{c.name}</span>} secondary={<><span style={{ color: '#444' }}>{c.phone}</span>{c.email && <><br /><span style={{ color: '#888' }}>{c.email}</span></>} </>} />
+                            <ListItemText primary={<span style={{ fontWeight: 600, fontSize: '1.1rem' }}>{c.name}</span>} secondary={<><span style={{ color: '#10dceb' }}>{c.phone}</span>{c.email && <><br /><span style={{ color: '#eb10b4' }}>{c.email}</span></>} </>} />
                           </Box>
                           <ListItemIcon sx={{ mr: 2 }}>
                             <Checkbox edge="end" checked={c.checked} sx={{ '& .MuiSvgIcon-root': { fontSize: 24, color: c.checked ? blueGrey[700] : undefined } }} />
