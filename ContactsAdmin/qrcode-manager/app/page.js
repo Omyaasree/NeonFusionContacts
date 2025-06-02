@@ -174,10 +174,10 @@ contacts.map(c => (
       <Avatar
         sx={{
           bgcolor: "#002B36",
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
           fontWeight: 800,
-          fontSize: "1.2rem",
+          fontSize: "1.8rem",
           color: "#00FFFF",
           textShadow: "0 0 6px #00FFFF, 0 0 10px #00FFFF"
         }}
