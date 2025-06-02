@@ -160,31 +160,39 @@ export default function ContactsPage() {
                   <List>
                     {contacts.map((c) => (
                       <Box key={c.id} sx={{ '&:hover': { backgroundColor: 'rgba(187, 222, 71, 0.05)' } }}>
-                        <ListItem button onClick={() => handleCheckboxChange(c.id)} sx={{ py: 2, px: 3 }}>
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 1 }}>
-                            <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>{getInitials(c.name)}</Avatar>
-                            <ListItemText
-                              primary={
-                                <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>{c.name}</span>
-                              }
-                              secondary={
-                                <>
-                                  <span style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#444' }}>
-                                    📞 <span>{c.phone}</span>
-                                  </span>
-                                  {c.email && (
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#888' }}>
-                                      📧 <span>{c.email}</span>
-                                    </span>
-                                  )}
-                                </>
-                              }
-                            />
-                          </Box>
-                          <ListItemIcon sx={{ mr: 2 }}>
-                            <Checkbox edge="end" checked={c.checked} sx={{ '& .MuiSvgIcon-root': { fontSize: 24, color: c.checked ? blueGrey[700] : undefined } }} />
-                          </ListItemIcon>
-                        </ListItem>
+<ListItem
+  button
+  onClick={() => handleCheckboxChange(c.id)}
+  sx={{
+    py: 2,
+    px: 3,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  }}
+>
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>{getInitials(c.name)}</Avatar>
+    <Box>
+      <Typography sx={{ fontWeight: 600, fontSize: '1.1rem' }}>{c.name}</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#444' }}>
+        📞 <Typography variant="body2">{c.phone}</Typography>
+      </Box>
+      {c.email && (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#888' }}>
+          📧 <Typography variant="body2">{c.email}</Typography>
+        </Box>
+      )}
+    </Box>
+  </Box>
+
+  <Checkbox
+    edge="end"
+    checked={c.checked}
+    sx={{ '& .MuiSvgIcon-root': { fontSize: 24, color: c.checked ? blueGrey[700] : undefined } }}
+  />
+</ListItem>
+
                         <Divider />
                       </Box>
                     ))}
