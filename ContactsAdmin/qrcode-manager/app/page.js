@@ -142,6 +142,7 @@ export default function AdminPage() {
             </Box>
 
             <CardContent>
+              <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
               {contacts.length === 0 ? (
                 <Typography variant="body1" align="center" sx={{ py: 5 }}>
                   No contacts yet.
