@@ -19,6 +19,7 @@ import * as XLSX from "xlsx";
 
 const theme = createTheme({
   palette: {
+    // Removed `mode: 'dark'` for light mode
     primary: {
       main: "#00FFFF",      // Neon Cyan
       light: "#66FFFF",
@@ -30,12 +31,12 @@ const theme = createTheme({
       dark: "#CC00CC"
     },
     background: {
-      default: "#0d0d0d",   // Jet Black Background
-      paper: "#1a1a1a"      // Dark Gray for cards
+      default: "#ffffff",   // ⬅️ White page background
+      paper: "#ffffff"      // ⬅️ White card background
     },
     text: {
-      primary: "#FFFFFF",   // Bright white text
-      secondary: "#AAAAAA"  // Light gray secondary text
+      primary: "#000000",   // Black text
+      secondary: "#555555"  // Dark gray secondary text
     }
   },
   typography: {
