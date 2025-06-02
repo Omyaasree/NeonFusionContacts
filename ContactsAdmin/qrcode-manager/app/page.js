@@ -33,6 +33,7 @@ export default function AdminPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+  const [showFlashcard, setShowFlashcard] = useState(true); // NEW
 
   useEffect(() => {
     loadContacts();
@@ -150,6 +151,7 @@ export default function AdminPage() {
           </Card>
         </Box>
 
+        {/* Contact Dialog */}
         <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogTitle>{editMode ? "Edit Contact" : "Add Contact"}</DialogTitle>
           <DialogContent>
@@ -163,6 +165,7 @@ export default function AdminPage() {
           </DialogActions>
         </Dialog>
 
+        {/* Snackbar */}
         <Snackbar
           open={snackbar.open}
           autoHideDuration={3000}
@@ -173,6 +176,42 @@ export default function AdminPage() {
             {snackbar.message}
           </Alert>
         </Snackbar>
+
+        {/* Flashcard Dialog */}
+        <Dialog open={showFlashcard} onClose={() => setShowFlashcard(false)}>
+          <DialogTitle>Welcome</DialogTitle>
+          <DialogContent>
+            <Typography variant="body1" gutterBottom>
+              Choose how you want to add contacts:
+            </Typography>
+            <Box display="flex" flexDirection="column" gap={2} mt={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setShowFlashcard(false);
+                  alert("📁 Excel import not implemented yet");
+                }}
+              >
+                📁 Import Excel
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setShowFlashcard(false);
+                  setOpen(true);
+                  setEditMode(false);
+                  setCurrentId("");
+                  setName("");
+                  setPhone("");
+                  setEmail("");
+                }}
+              >
+                ✍️ Add Manually
+              </Button>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </Box>
     </ThemeProvider>
   );
