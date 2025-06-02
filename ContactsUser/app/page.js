@@ -15,33 +15,59 @@ import { amber, blueGrey, teal } from '@mui/material/colors';
 import { firestore } from "../firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 
-const theme = createTheme({
-  palette: {
-    mode: 'dark', // 🌙 Enables dark base mode for better neon contrast
-    primary: {
-      main: "#00FFFF",      // Neon Cyan
-      light: "#66FFFF",
-      dark: "#00CCCC"
-    },
-    secondary: {
-      main: "#FF00FF",      // Neon Magenta
-      light: "#FF66FF",
-      dark: "#CC00CC"
-    },
-    background: {
-      default: "#0d0d0d",   // Jet Black Background
-      paper: "#1a1a1a"      // Dark Gray for cards
-    },
-    text: {
-      primary: "#FFFFFF",   // Bright white text
-      secondary: "#AAAAAA"  // Light gray secondary text
+<ListItem
+  button
+  onClick={() => handleCheckboxChange(c.id)}
+  sx={{
+    py: 2,
+    px: 3,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '&:hover': {
+      backgroundColor: '#1e1e1e',
+      boxShadow: '0 0 8px #00FFFF'
     }
-  },
-  typography: {
-    fontFamily: "Segoe UI, Roboto, sans-serif",
-    fontWeightBold: 700
-  }
-});
+  }}
+>
+  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+    <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>
+      {getInitials(c.name)}
+    </Avatar>
+    <Box>
+      <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#FFFFFF' }}>
+        {c.name}
+      </Typography>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
+        <span style={{ color: '#FF4081', fontSize: '1.2rem' }}>📞</span>
+        <Typography variant="body2" sx={{ color: '#00FFCC', fontWeight: 500 }}>
+          {c.phone}
+        </Typography>
+      </Box>
+
+      {c.email && (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <span style={{ color: '#7C4DFF', fontSize: '1.2rem' }}>📧</span>
+          <Typography variant="body2" sx={{ color: '#FFD700', fontWeight: 500 }}>
+            {c.email}
+          </Typography>
+        </Box>
+      )}
+    </Box>
+  </Box>
+
+  <Checkbox
+    edge="end"
+    checked={c.checked}
+    sx={{
+      '& .MuiSvgIcon-root': {
+        fontSize: 24,
+        color: c.checked ? '#00FFFF' : '#555'
+      }
+    }}
+  />
+</ListItem>
 
 
 function HelpDialog({ open, onClose }) {
