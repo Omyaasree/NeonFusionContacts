@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import {
   Box, Avatar, Divider, Checkbox, Button, Typography, List, ListItem,
-  ListItemText, ListItemIcon, Container, Snackbar, Alert, Card,
+  Container, Snackbar, Alert, Card,
   CardContent, createTheme, CardActions, ThemeProvider, CssBaseline
 } from "@mui/material";
 import {
@@ -15,60 +15,15 @@ import { amber, blueGrey, teal } from '@mui/material/colors';
 import { firestore } from "../firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 
-<ListItem
-  button
-  onClick={() => handleCheckboxChange(c.id)}
-  sx={{
-    py: 2,
-    px: 3,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    '&:hover': {
-      backgroundColor: '#1e1e1e',
-      boxShadow: '0 0 8px #00FFFF'
-    }
-  }}
->
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-    <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>
-      {getInitials(c.name)}
-    </Avatar>
-    <Box>
-      <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#FFFFFF' }}>
-        {c.name}
-      </Typography>
-
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
-        <span style={{ color: '#FF4081', fontSize: '1.2rem' }}>📞</span>
-        <Typography variant="body2" sx={{ color: '#00FFCC', fontWeight: 500 }}>
-          {c.phone}
-        </Typography>
-      </Box>
-
-      {c.email && (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <span style={{ color: '#7C4DFF', fontSize: '1.2rem' }}>📧</span>
-          <Typography variant="body2" sx={{ color: '#FFD700', fontWeight: 500 }}>
-            {c.email}
-          </Typography>
-        </Box>
-      )}
-    </Box>
-  </Box>
-
-  <Checkbox
-    edge="end"
-    checked={c.checked}
-    sx={{
-      '& .MuiSvgIcon-root': {
-        fontSize: 24,
-        color: c.checked ? '#00FFFF' : '#555'
-      }
-    }}
-  />
-</ListItem>
-
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: "#00FFFF", light: "#66FFFF", dark: "#00CCCC" },
+    secondary: { main: "#FF00FF", light: "#FF66FF", dark: "#CC00CC" },
+    background: { default: "#0d0d0d", paper: "#1a1a1a" },
+    text: { primary: "#FFFFFF", secondary: "#AAAAAA" }
+  }
+});
 
 function HelpDialog({ open, onClose }) {
   return (
@@ -188,7 +143,13 @@ export default function ContactsPage() {
             </Button>
           </Box>
           <Card>
-            <Box sx={{ p: 4, pb: 2, background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`, color: "white", borderTopLeftRadius: theme.shape.borderRadius, borderTopRightRadius: theme.shape.borderRadius }}>
+            <Box sx={{
+              p: 4, pb: 2,
+              background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+              color: "white",
+              borderTopLeftRadius: theme.shape.borderRadius,
+              borderTopRightRadius: theme.shape.borderRadius
+            }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <ContactsIcon fontSize="large" />
                 <Typography variant="h5" fontWeight="bold">Important Contacts</Typography>
@@ -206,40 +167,52 @@ export default function ContactsPage() {
                 ) : (
                   <List>
                     {contacts.map((c) => (
-                      <Box key={c.id} sx={{ '&:hover': { backgroundColor: 'rgba(28, 17, 240, 0.05)' } }}>
-<ListItem
-  button
-  onClick={() => handleCheckboxChange(c.id)}
-  sx={{
-    py: 2,
-    px: 3,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  }}
->
-  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-    <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>{getInitials(c.name)}</Avatar>
-    <Box>
-      <Typography sx={{ fontWeight: 600, fontSize: '1.1rem' }}>{c.name}</Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#444' }}>
-        📞 <Typography variant="body2">{c.phone}</Typography>
-      </Box>
-      {c.email && (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#888' }}>
-          📧 <Typography variant="body2">{c.email}</Typography>
-        </Box>
-      )}
-    </Box>
-  </Box>
+                      <Box key={c.id} sx={{ '&:hover': { backgroundColor: '#1e1e1e', boxShadow: '0 0 8px #00FFFF' } }}>
+                        <ListItem
+                          button
+                          onClick={() => handleCheckboxChange(c.id)}
+                          sx={{
+                            py: 2,
+                            px: 3,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>{getInitials(c.name)}</Avatar>
+                            <Box>
+                              <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#FFFFFF' }}>
+                                {c.name}
+                              </Typography>
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
+                                <span style={{ color: '#FF4081', fontSize: '1.2rem' }}>📞</span>
+                                <Typography variant="body2" sx={{ color: '#00FFCC', fontWeight: 500 }}>
+                                  {c.phone}
+                                </Typography>
+                              </Box>
+                              {c.email && (
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                  <span style={{ color: '#7C4DFF', fontSize: '1.2rem' }}>📧</span>
+                                  <Typography variant="body2" sx={{ color: '#FFD700', fontWeight: 500 }}>
+                                    {c.email}
+                                  </Typography>
+                                </Box>
+                              )}
+                            </Box>
+                          </Box>
 
-  <Checkbox
-    edge="end"
-    checked={c.checked}
-    sx={{ '& .MuiSvgIcon-root': { fontSize: 24, color: c.checked ? blueGrey[700] : undefined } }}
-  />
-</ListItem>
-
+                          <Checkbox
+                            edge="end"
+                            checked={c.checked}
+                            sx={{
+                              '& .MuiSvgIcon-root': {
+                                fontSize: 24,
+                                color: c.checked ? '#00FFFF' : '#555'
+                              }
+                            }}
+                          />
+                        </ListItem>
                         <Divider />
                       </Box>
                     ))}
