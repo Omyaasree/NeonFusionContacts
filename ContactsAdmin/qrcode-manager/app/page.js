@@ -19,9 +19,29 @@ import * as XLSX from "xlsx";
 
 const theme = createTheme({
   palette: {
-    primary: { main: teal[600], light: teal[400], dark: teal[800] },
-    secondary: { main: amber[700], light: amber[500], dark: amber[900] },
-    background: { default: blueGrey[50], paper: "#fff" }
+    mode: 'dark', // 🌙 Enables dark base mode for better neon contrast
+    primary: {
+      main: "#00FFFF",      // Neon Cyan
+      light: "#66FFFF",
+      dark: "#00CCCC"
+    },
+    secondary: {
+      main: "#FF00FF",      // Neon Magenta
+      light: "#FF66FF",
+      dark: "#CC00CC"
+    },
+    background: {
+      default: "#0d0d0d",   // Jet Black Background
+      paper: "#1a1a1a"      // Dark Gray for cards
+    },
+    text: {
+      primary: "#FFFFFF",   // Bright white text
+      secondary: "#AAAAAA"  // Light gray secondary text
+    }
+  },
+  typography: {
+    fontFamily: "Segoe UI, Roboto, sans-serif",
+    fontWeightBold: 700
   }
 });
 
