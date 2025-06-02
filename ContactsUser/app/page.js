@@ -152,7 +152,7 @@ export default function ContactsPage() {
             }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <ContactsIcon fontSize="large" />
-                <Typography variant="h5" fontWeight="bold">Important Contacts</Typography>
+                <Typography variant="h5" fontWeight="bold">Import Contacts</Typography>
               </Box>
               <Typography variant="body2" sx={{ mt: 1, opacity: 0.9 }}>Select contacts to add to your phone</Typography>
             </Box>
