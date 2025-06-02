@@ -10,7 +10,7 @@ qr_kiki = segno.make_qr(url)
 
 
 qr_kiki.save(
-    "neonFusionContactsApp",
+    "neonFusionContactsApp.png",
     scale=7,
     border=2,
     dark="#00796B",    # Deep navy blue, like Kiki's dress
