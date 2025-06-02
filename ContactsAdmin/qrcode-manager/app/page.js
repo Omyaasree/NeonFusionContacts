@@ -1,5 +1,3 @@
-// Working Satisfactory Demo
-
 "use client";
 
 import {
@@ -21,24 +19,23 @@ import * as XLSX from "xlsx";
 
 const theme = createTheme({
   palette: {
-    // Removed `mode: 'dark'` for light mode
     primary: {
-      main: "#00FFFF",      // Neon Cyan
+      main: "#00FFFF",
       light: "#66FFFF",
       dark: "#00CCCC"
     },
     secondary: {
-      main: "#FF00FF",      // Neon Magenta
+      main: "#FF00FF",
       light: "#FF66FF",
       dark: "#CC00CC"
     },
     background: {
-      default: "#ffffff",   // ⬅️ White page background
-      paper: "#ffffff"      // ⬅️ White card background
+      default: "#ffffff",
+      paper: "#ffffff"
     },
     text: {
-      primary: "#000000",   // Black text
-      secondary: "#555555"  // Dark gray secondary text
+      primary: "#000000",
+      secondary: "#555555"
     }
   },
   typography: {
@@ -54,7 +51,6 @@ export default function AdminPage() {
   const [currentId, setCurrentId] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
   const [showFlashcard, setShowFlashcard] = useState(true);
   const [excelDialog, setExcelDialog] = useState(false);
@@ -68,10 +64,7 @@ export default function AdminPage() {
 
   const loadContacts = async () => {
     const snapshot = await getDocs(collection(firestore, "contacts"));
-    const list = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+    const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setContacts(list);
   };
 
@@ -88,12 +81,11 @@ export default function AdminPage() {
         await deleteDoc(doc(firestore, "contacts", currentId));
       }
       await setDoc(doc(firestore, "contacts", id), {
-        phone: formattedPhone,
-        email: email.trim()
+        phone: formattedPhone
       });
       setSnackbar({ open: true, message: "Contact saved", severity: "success" });
       setOpen(false);
-      setName(""); setPhone(""); setEmail("");
+      setName(""); setPhone("");
       setEditMode(false); setCurrentId("");
       loadContacts();
     } catch (error) {
@@ -131,10 +123,9 @@ export default function AdminPage() {
           const row = rows[i];
           const name = row[0]?.toString().trim();
           const phone = row[1]?.toString().replace(/\D/g, "");
-          const email = row[2]?.toString().trim();
 
           if (name && phone) {
-            await setDoc(doc(firestore, "contacts", name), { phone, email });
+            await setDoc(doc(firestore, "contacts", name), { phone });
           }
         }
         setSnackbar({ open: true, message: "Contacts imported from Excel", severity: "success" });
@@ -164,109 +155,82 @@ export default function AdminPage() {
             </Box>
 
             <CardContent>
-  <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
-    {contacts.length === 0 ? (
-      <Typography variant="body1" align="center" sx={{ py: 5 }}>
-        No contacts yet.
-      </Typography>
-    ) : (
-contacts.map(c => (
-  <Box key={c.id} sx={{ mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-    <Avatar
-      sx={{
-        bgcolor: "#ffffff",              // White background
-        color: "#FF00FF",                // Neon Magenta text
-        width: 50,
-        height: 50,
-        fontWeight: 800,
-        fontSize: "1.8rem",
-        border: "2px solid #FF00FF",     // Neon border
-        boxShadow: "0 0 4px #FF00FF"     // Softer glow
-      }}
-    >
-      {getInitials(c.id)}
-    </Avatar>
-      
-      <Box>
-        <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#000' }}>
-          {c.id}
-        </Typography>
+              <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
+                {contacts.length === 0 ? (
+                  <Typography variant="body1" align="center" sx={{ py: 5 }}>
+                    No contacts yet.
+                  </Typography>
+                ) : (
+                  contacts.map(c => (
+                    <Box key={c.id} sx={{ mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Avatar
+                          sx={{
+                            bgcolor: "#ffffff",
+                            color: "#FF00FF",
+                            width: 50,
+                            height: 50,
+                            fontWeight: 800,
+                            fontSize: "1.8rem",
+                            border: "2px solid #FF00FF",
+                            boxShadow: "0 0 4px #FF00FF"
+                          }}
+                        >
+                          {getInitials(c.id)}
+                        </Avatar>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
-          <span style={{ color: '#FF4081', fontSize: '1.2rem' }}>📞</span>
-          <Typography variant="body2" sx={{ color: '#00CCAA', fontWeight: 500 }}>
-            {c.phone}
-          </Typography>
-        </Box>
+                        <Box>
+                          <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#000' }}>
+                            {c.id}
+                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
+                            <span style={{ color: '#FF4081', fontSize: '1.2rem' }}>📞</span>
+                            <Typography variant="body2" sx={{ color: '#00CCAA', fontWeight: 500 }}>
+                              {c.phone}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
 
-        {c.email && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <span style={{ color: '#7C4DFF', fontSize: '1.2rem' }}>📧</span>
-            <Typography variant="body2" sx={{ color: '#FFD700', fontWeight: 500 }}>
-              {c.email}
-            </Typography>
-          </Box>
-        )}
-      </Box>
-    </Box>
+                      <Box sx={{ mt: 1, display: "flex", gap: 1 }}>
+                        <Button color="primary" startIcon={<EditIcon />} onClick={() => {
+                          setOpen(true);
+                          setEditMode(true);
+                          setCurrentId(c.id);
+                          setName(c.id);
+                          setPhone(c.phone);
+                        }}>
+                          Edit
+                        </Button>
+                        <Button color="error" onClick={() => deleteContact(c.id)}>Delete</Button>
+                      </Box>
+                    </Box>
+                  ))
+                )}
+              </Box>
+            </CardContent>
 
-    <Box sx={{ mt: 1, display: "flex", gap: 1 }}>
-      <Button color="primary" startIcon={<EditIcon />} onClick={() => {
-        setOpen(true);
-        setEditMode(true);
-        setCurrentId(c.id);
-        setName(c.id);
-        setPhone(c.phone);
-        setEmail(c.email || "");
-      }}>
-        Edit
-      </Button>
-      <Button color="error" onClick={() => deleteContact(c.id)}>Delete</Button>
-    </Box>
-  </Box>
-))
+            <CardActions sx={{ p: 2, justifyContent: "center", gap: 2 }}>
+              <Button variant="contained" startIcon={<AddIcon />} onClick={() => {
+                setOpen(true);
+                setEditMode(false);
+                setCurrentId("");
+                setName("");
+                setPhone("");
+              }}>Add Contact</Button>
 
-    )}
-  </Box> {/* ✅ CLOSE THE SCROLLABLE BOX HERE */}
-</CardContent>
-
-
-<CardActions sx={{ p: 2, justifyContent: "center", gap: 2 }}>
-  <Button
-    variant="contained"
-    startIcon={<AddIcon />}
-    onClick={() => {
-      setOpen(true);
-      setEditMode(false);
-      setCurrentId("");
-      setName("");
-      setPhone("");
-      setEmail("");
-    }}
-  >
-    Add Contact
-  </Button>
-
-  <Button
-    variant="outlined"
-    startIcon={<InfoIcon />}
-    onClick={() => setExcelDialog(true)}
-  >
-    Import from Excel
-  </Button>
-</CardActions>
-
+              <Button variant="outlined" startIcon={<InfoIcon />} onClick={() => setExcelDialog(true)}>
+                Import from Excel
+              </Button>
+            </CardActions>
           </Card>
         </Box>
 
-        {/* Manual Add Dialog */}
         <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogTitle>{editMode ? "Edit Contact" : "Add Contact"}</DialogTitle>
           <DialogContent>
             <TextField margin="dense" label="Name" fullWidth value={name} onChange={(e) => setName(e.target.value)} />
             <TextField margin="dense" label="Phone Number" fullWidth value={phone} onChange={(e) => setPhone(e.target.value)} />
-            <TextField margin="dense" label="Email" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
@@ -274,48 +238,29 @@ contacts.map(c => (
           </DialogActions>
         </Dialog>
 
-        {/* Snackbar */}
-        <Snackbar
-          open={snackbar.open}
-          autoHideDuration={3000}
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        >
+        <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
           <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity}>
             {snackbar.message}
           </Alert>
         </Snackbar>
 
-        {/* Flashcard Intro */}
         <Dialog open={showFlashcard} onClose={() => setShowFlashcard(false)}>
           <DialogTitle>Welcome</DialogTitle>
           <DialogContent>
             <Typography variant="body1" gutterBottom>Choose how you want to add contacts:</Typography>
             <Box display="flex" flexDirection="column" gap={2} mt={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  setShowFlashcard(false);
-                  setExcelDialog(true);
-                }}
-              >
-                📁 Import Excel
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  setShowFlashcard(false);
-                  setOpen(true);
-                }}
-              >
-                ✍️ Add Manually
-              </Button>
+              <Button variant="contained" color="primary" onClick={() => {
+                setShowFlashcard(false);
+                setExcelDialog(true);
+              }}>📁 Import Excel</Button>
+              <Button variant="outlined" onClick={() => {
+                setShowFlashcard(false);
+                setOpen(true);
+              }}>✍️ Add Manually</Button>
             </Box>
           </DialogContent>
         </Dialog>
 
-        {/* Excel Import Dialog */}
         <Dialog open={excelDialog} onClose={() => setExcelDialog(false)}>
           <DialogTitle>Import from Excel</DialogTitle>
           <DialogContent>
