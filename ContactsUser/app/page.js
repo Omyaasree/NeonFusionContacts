@@ -180,7 +180,19 @@ export default function ContactsPage() {
                           }}
                         >
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                            <Avatar sx={{ bgcolor: getAvatarColor(c.name), width: 40, height: 40 }}>{getInitials(c.name)}</Avatar>
+                          <Avatar
+                            sx={{
+                              width: 40,
+                              height: 40,
+                              fontWeight: 800,
+                              fontSize: "1.2rem",
+                              color: "#00FFFF", // Neon cyan
+                              bgcolor: "#002B36", // Dark background to make neon pop
+                              textShadow: "0 0 6px #00FFFF, 0 0 10px #00FFFF"
+                            }}
+                          >
+                            {getInitials(c.name)}
+                          </Avatar>
                             <Box>
                               <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#FFFFFF' }}>
                                 {c.name}
