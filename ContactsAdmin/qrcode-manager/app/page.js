@@ -175,18 +175,31 @@ export default function AdminPage() {
               )}
             </CardContent>
 
-            <CardActions sx={{ p: 2, justifyContent: "center" }}>
-              <Button variant="contained" startIcon={<AddIcon />} onClick={() => {
-                setOpen(true);
-                setEditMode(false);
-                setCurrentId("");
-                setName("");
-                setPhone("");
-                setEmail("");
-              }}>
-                Add Contact
-              </Button>
-            </CardActions>
+<CardActions sx={{ p: 2, justifyContent: "center", gap: 2 }}>
+  <Button
+    variant="contained"
+    startIcon={<AddIcon />}
+    onClick={() => {
+      setOpen(true);
+      setEditMode(false);
+      setCurrentId("");
+      setName("");
+      setPhone("");
+      setEmail("");
+    }}
+  >
+    Add Contact
+  </Button>
+
+  <Button
+    variant="outlined"
+    startIcon={<InfoIcon />}
+    onClick={() => setExcelDialog(true)}
+  >
+    Import from Excel
+  </Button>
+</CardActions>
+
           </Card>
         </Box>
 
