@@ -142,39 +142,41 @@ export default function AdminPage() {
             </Box>
 
             <CardContent>
-              <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
-              {contacts.length === 0 ? (
-                <Typography variant="body1" align="center" sx={{ py: 5 }}>
-                  No contacts yet.
-                </Typography>
-              ) : (
-                contacts.map(c => (
-                  <Box key={c.id} sx={{ mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Avatar sx={{ bgcolor: teal[600] }}>{getInitials(c.id)}</Avatar>
-                      <Box>
-                        <Typography fontWeight={600}>{c.id}</Typography>
-                        <Typography variant="body2">📞 {c.phone}</Typography>
-                        <Typography variant="body2">📧 {c.email || "—"}</Typography>
-                      </Box>
-                    </Box>
-                    <Box sx={{ mt: 1, display: "flex", gap: 1 }}>
-                      <Button color="primary" startIcon={<EditIcon />} onClick={() => {
-                        setOpen(true);
-                        setEditMode(true);
-                        setCurrentId(c.id);
-                        setName(c.id);
-                        setPhone(c.phone);
-                        setEmail(c.email || "");
-                      }}>
-                        Edit
-                      </Button>
-                      <Button color="error" onClick={() => deleteContact(c.id)}>Delete</Button>
-                    </Box>
-                  </Box>
-                ))
-              )}
-            </CardContent>
+  <Box sx={{ maxHeight: '400px', overflowY: 'auto' }}>
+    {contacts.length === 0 ? (
+      <Typography variant="body1" align="center" sx={{ py: 5 }}>
+        No contacts yet.
+      </Typography>
+    ) : (
+      contacts.map(c => (
+        <Box key={c.id} sx={{ mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Avatar sx={{ bgcolor: teal[600] }}>{getInitials(c.id)}</Avatar>
+            <Box>
+              <Typography fontWeight={600}>{c.id}</Typography>
+              <Typography variant="body2">📞 {c.phone}</Typography>
+              <Typography variant="body2">📧 {c.email || "—"}</Typography>
+            </Box>
+          </Box>
+          <Box sx={{ mt: 1, display: "flex", gap: 1 }}>
+            <Button color="primary" startIcon={<EditIcon />} onClick={() => {
+              setOpen(true);
+              setEditMode(true);
+              setCurrentId(c.id);
+              setName(c.id);
+              setPhone(c.phone);
+              setEmail(c.email || "");
+            }}>
+              Edit
+            </Button>
+            <Button color="error" onClick={() => deleteContact(c.id)}>Delete</Button>
+          </Box>
+        </Box>
+      ))
+    )}
+  </Box> {/* ✅ CLOSE THE SCROLLABLE BOX HERE */}
+</CardContent>
+
 
 <CardActions sx={{ p: 2, justifyContent: "center", gap: 2 }}>
   <Button
