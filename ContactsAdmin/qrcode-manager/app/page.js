@@ -171,19 +171,21 @@ export default function AdminPage() {
 contacts.map(c => (
   <Box key={c.id} sx={{ mb: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}>
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-      <Avatar
-        sx={{
-          bgcolor: "#002B36",
-          width: 50,
-          height: 50,
-          fontWeight: 800,
-          fontSize: "1.8rem",
-          color: "#00FFFF",
-        }}
-      >
-        {getInitials(c.id)}
-      </Avatar>
-
+    <Avatar
+      sx={{
+        bgcolor: "#ffffff",              // White background
+        color: "#FF00FF",                // Neon Magenta text
+        width: 50,
+        height: 50,
+        fontWeight: 800,
+        fontSize: "1.8rem",
+        border: "2px solid #FF00FF",     // Neon border
+        boxShadow: "0 0 4px #FF00FF"     // Softer glow
+      }}
+    >
+      {getInitials(c.id)}
+    </Avatar>
+      
       <Box>
         <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#000' }}>
           {c.id}
