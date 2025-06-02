@@ -185,9 +185,10 @@ export default function AdminPage() {
                           </Typography>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
                             <span style={{ color: '#FF4081', fontSize: '1.2rem' }}>📞</span>
-                            <Typography variant="body2" sx={{ color: '#00CCAA', fontWeight: 500 }}>
+                            <Typography variant="body2" sx={{ color: '#00FFCC', fontWeight: 500, fontSize: '1rem' }}>
                               {c.phone}
                             </Typography>
+
                           </Box>
                         </Box>
                       </Box>
