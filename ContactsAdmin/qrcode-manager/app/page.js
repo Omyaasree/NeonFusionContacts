@@ -8,7 +8,8 @@ import {
 import {
   Contacts as ContactsIcon,
   Info as InfoIcon,
-  Add as AddIcon
+  Add as AddIcon,
+  Edit as EditIcon
 } from "@mui/icons-material";
 import { amber, blueGrey, teal } from "@mui/material/colors";
 import { useEffect, useState } from "react";
@@ -26,6 +27,8 @@ const theme = createTheme({
 export default function AdminPage() {
   const [contacts, setContacts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [currentId, setCurrentId] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -52,13 +55,18 @@ export default function AdminPage() {
     }
 
     try {
-      await setDoc(doc(firestore, "contacts", name.trim()), {
+      const id = editMode ? currentId : name.trim();
+      if (editMode && currentId !== name.trim()) {
+        await deleteDoc(doc(firestore, "contacts", currentId));
+      }
+      await setDoc(doc(firestore, "contacts", id), {
         phone: formattedPhone,
         email: email.trim()
       });
       setSnackbar({ open: true, message: "Contact saved", severity: "success" });
       setOpen(false);
       setName(""); setPhone(""); setEmail("");
+      setEditMode(false); setCurrentId("");
       loadContacts();
     } catch (error) {
       console.error("Save error:", error);
@@ -109,14 +117,33 @@ export default function AdminPage() {
                         <Typography variant="body2">📧 {c.email || "—"}</Typography>
                       </Box>
                     </Box>
-                    <Button sx={{ mt: 1 }} color="error" onClick={() => deleteContact(c.id)}>Delete</Button>
+                    <Box sx={{ mt: 1, display: "flex", gap: 1 }}>
+                      <Button color="primary" startIcon={<EditIcon />} onClick={() => {
+                        setOpen(true);
+                        setEditMode(true);
+                        setCurrentId(c.id);
+                        setName(c.id);
+                        setPhone(c.phone);
+                        setEmail(c.email || "");
+                      }}>
+                        Edit
+                      </Button>
+                      <Button color="error" onClick={() => deleteContact(c.id)}>Delete</Button>
+                    </Box>
                   </Box>
                 ))
               )}
             </CardContent>
 
             <CardActions sx={{ p: 2, justifyContent: "center" }}>
-              <Button variant="contained" startIcon={<AddIcon />} onClick={() => setOpen(true)}>
+              <Button variant="contained" startIcon={<AddIcon />} onClick={() => {
+                setOpen(true);
+                setEditMode(false);
+                setCurrentId("");
+                setName("");
+                setPhone("");
+                setEmail("");
+              }}>
                 Add Contact
               </Button>
             </CardActions>
@@ -124,7 +151,7 @@ export default function AdminPage() {
         </Box>
 
         <Dialog open={open} onClose={() => setOpen(false)}>
-          <DialogTitle>Add Contact</DialogTitle>
+          <DialogTitle>{editMode ? "Edit Contact" : "Add Contact"}</DialogTitle>
           <DialogContent>
             <TextField margin="dense" label="Name" fullWidth value={name} onChange={(e) => setName(e.target.value)} />
             <TextField margin="dense" label="Phone Number" fullWidth value={phone} onChange={(e) => setPhone(e.target.value)} />
