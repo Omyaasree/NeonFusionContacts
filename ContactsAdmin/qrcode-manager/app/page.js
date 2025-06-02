@@ -179,7 +179,6 @@ contacts.map(c => (
           fontWeight: 800,
           fontSize: "1.8rem",
           color: "#00FFFF",
-          textShadow: "0 0 6px #00FFFF, 0 0 10px #00FFFF"
         }}
       >
         {getInitials(c.id)}
