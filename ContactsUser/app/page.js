@@ -76,7 +76,6 @@ export default function ContactsPage() {
         querySnapshot.forEach((doc) => {
           let data = doc.data();
           let phone = data.phone || "";
-          let email = data.email || "";
           let formattedPhone = phone;
           if (phone.length === 10 && /^\d+$/.test(phone)) {
             formattedPhone = `(${phone.substring(0, 3)}) ${phone.substring(3, 6)}-${phone.substring(6)}`;
@@ -86,7 +85,6 @@ export default function ContactsPage() {
             name: doc.id,
             phone: formattedPhone,
             rawPhone: phone,
-            email,
             checked: true
           });
           counter++;
@@ -115,7 +113,6 @@ export default function ContactsPage() {
       `FN:${c.name}`,
       `N:;${c.name};;;`,
       `TEL;TYPE=CELL:${c.rawPhone}`,
-      c.email ? `EMAIL:${c.email}` : "",
       "END:VCARD"
     ].join("\r\n")).join("\r\n");
 
@@ -180,18 +177,18 @@ export default function ContactsPage() {
                           }}
                         >
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                          <Avatar
-                            sx={{
-                              width: 50,
-                              height: 50,
-                              fontWeight: 800,
-                              fontSize: "1.6rem",
-                              color: "#00FFFF", // Neon cyan
-                              bgcolor: "#002B36", // Dark background to make neon pop
-                            }}
-                          >
-                            {getInitials(c.name)}
-                          </Avatar>
+                            <Avatar
+                              sx={{
+                                width: 50,
+                                height: 50,
+                                fontWeight: 800,
+                                fontSize: "1.6rem",
+                                color: "#00FFFF",
+                                bgcolor: "#002B36",
+                              }}
+                            >
+                              {getInitials(c.name)}
+                            </Avatar>
                             <Box>
                               <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: '#FFFFFF' }}>
                                 {c.name}
@@ -202,14 +199,6 @@ export default function ContactsPage() {
                                   {c.phone}
                                 </Typography>
                               </Box>
-                              {c.email && (
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                  <span style={{ color: '#7C4DFF', fontSize: '1.2rem' }}>📧</span>
-                                  <Typography variant="body2" sx={{ color: '#FFD700', fontWeight: 500 }}>
-                                    {c.email}
-                                  </Typography>
-                                </Box>
-                              )}
                             </Box>
                           </Box>
 
