@@ -19,7 +19,6 @@ import * as XLSX from "xlsx";
 
 const theme = createTheme({
   palette: {
-    mode: 'dark', // 🌙 Enables dark base mode for better neon contrast
     primary: {
       main: "#00FFFF",      // Neon Cyan
       light: "#66FFFF",
