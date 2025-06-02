@@ -188,7 +188,6 @@ export default function ContactsPage() {
                               fontSize: "1.6rem",
                               color: "#00FFFF", // Neon cyan
                               bgcolor: "#002B36", // Dark background to make neon pop
-                              textShadow: "0 0 6px #00FFFF, 0 0 10px #00FFFF"
                             }}
                           >
                             {getInitials(c.name)}
